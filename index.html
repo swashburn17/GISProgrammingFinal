@@ -1,0 +1,200 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Intro to ImageryLayer | Sample | ArcGIS Maps SDK for JavaScript 4.29</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.29/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/config", "esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/layers/FeatureLayer", "esri/widgets/Legend", "esri/widgets/Locate"], (esriConfig, Map, MapView, ImageryLayer, FeatureLayer, Legend, Locate) => {
+
+         esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
+        const layer = new ImageryLayer({
+          url: "https://earthobs2.arcgis.com/arcgis/rest/services/REMSS_SeaSurfaceTemp/ImageServer",
+          format: "jpgpng" // server exports in either jpg or png format
+        });
+
+      // Adding Image Layer
+        const map = new Map({
+          basemap: "arcgis-topographic",
+          layers: [layer]
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-100, 40],
+          zoom: 4
+        });
+
+        // Adding Weather Watches and Warnings featurelayer from feature service (0)
+      const WeatherReport = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer",
+      title: "USA Weather Watches and Warnings"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(WeatherReport);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const PublicForecastZones = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/1",
+      title: "USA Weather Watches and Warnings"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(PublicForecastZones);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const FireForecastZones = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/2",
+      title: "Fire Forecast Zones"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(FireForecastZones);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const USCounties = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/3",
+      title: "US Counties"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(USCounties);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const USStatesTerritories = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/4",
+      title: "US States and Territories"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(USStatesTerritories);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const CoastalOffshoreMarineZones = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/5",
+      title: "Coastal and Offshore Marine Zones"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(CoastalOffshoreMarineZones);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const EventsSizeSeverity = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6",
+      title: "Events Ordered by Size and Severity"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(EventsSizeSeverity);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const ExtremeEvents = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/8",
+      title: "Extreme Events"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(ExtremeEvents);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const SevereEvents = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/9",
+      title: "Severe Events"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(SevereEvents);
+
+      // Adding Public Forecast Zones featurelayer from feature service (0)
+      const ModerateEvents = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/10",
+      title: "Moderate Events"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(ModerateEvents);
+
+      // Create featurelayer from feature service
+      const MinorEvents = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/11",
+      title: "Minor Events"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(MinorEvents);
+
+      // Create featurelayer from feature service
+      const OtherEvents = new FeatureLayer({
+      // URL to the service
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/12",
+      title: "Other Events"
+      
+      });
+
+      // Adding the feature layer to the map
+      map.add(MinorEvents);
+
+      let legend = new Legend({
+      view: view
+      });
+
+      view.ui.add(legend, "bottom-right");
+
+
+      let locateWidget = new Locate({
+      view: view,   // Attaches the Locate button to the view
+      graphic: new Graphic({
+      symbol: { type: "simple-marker" }  // overwrites the default symbol used for the
+    // graphic placed at the location of the user when found
+    })
+});
+
+    view.ui.add(locateWidget, "top-left");
+
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>

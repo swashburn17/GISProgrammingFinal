@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>Intro to ImageryLayer | Sample | ArcGIS Maps SDK for JavaScript 4.29</title>
+    <title>GIS4102C Midterm - USA Weather Reports</title>
 
     <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.29/"></script>
@@ -49,12 +49,19 @@
       // Adding the feature layer to the map
       map.add(WeatherReport);
 
+      // Defining the pop-up template for Public Forecast Zones
+      const popPublicForeCastZones = {
+             "title": "<i>Public Forecast Zones</i>",
+            "content": "<b>Name:</b> {NAME}<br><b>UGC:</b> {UGC}<br><b>SGC:</b> {SGC}<br>"
+        } 
+
       // Adding Public Forecast Zones featurelayer from feature service (0)
       const PublicForecastZones = new FeatureLayer({
       // URL to the service
       url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/1",
-      title: "USA Weather Watches and Warnings"
-      
+      title: "USA Weather Watches and Warnings",
+      outfields: ["NAME", "UGC", "SGC"],
+      popupTemplate: popPublicForeCastZones
       });
 
       // Adding the feature layer to the map

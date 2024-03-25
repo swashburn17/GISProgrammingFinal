@@ -159,19 +159,18 @@ const ExtremeEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
-// Adding the feature layers to the map
-map.addMany([MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents]);
 
-      // Create featurelayer from feature service
-      const OtherEvents = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/12",
-      title: "Other Events"
-      
-      });
+// Create featurelayer from feature service
+const OtherEvents = new FeatureLayer({
+ // URL to the service
+  url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/12",
+  title: "Other Events",
+  outFields: ["Event","Severity","Summary","Affected","Updated"],
+  popupTemplate: popupTemplate    
+  });
 
-      // Adding the feature layer to the map
-      map.add(OtherEvents);
+    // Adding the feature layers to the map
+    map.addMany([MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents]);
 
       let legend = new Legend({
       view: view

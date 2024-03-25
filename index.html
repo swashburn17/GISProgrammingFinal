@@ -38,30 +38,31 @@
       })
         });
 
+        // Defining a popup Template for the feature layer
+        const popupWeatherReport = {
+             "title": "<i>Weather Report Information</i>",
+            "content": "<b>Object ID:</b> {OBJECTID}<br><b>Name:</b> {NAME}<br><b>UGC:</b> {UGC}<br><b>SGC:</b> {SGC}<br>"
+        }
+
+
         // Adding Weather Watches and Warnings featurelayer from feature service (0)
       const WeatherReport = new FeatureLayer({
       // URL to the service
       url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer",
-      title: "USA Weather Watches and Warnings"
-      
+      title: "USA Weather Watches and Warnings",
+      outFields: ["OBJECTID","NAME","UGC","SGC"],
+      popupTemplate: popupWeatherReport
       });
 
       // Adding the feature layer to the map
       map.add(WeatherReport);
 
-      // Defining the pop-up template for Public Forecast Zones
-      const popPublicForeCastZones = {
-             "title": "<i>Public Forecast Zones</i>",
-            "content": "<b>Name:</b> {NAME}<br><b>UGC:</b> {UGC}<br><b>SGC:</b> {SGC}<br>"
-        } 
-
       // Adding Public Forecast Zones featurelayer from feature service (0)
       const PublicForecastZones = new FeatureLayer({
       // URL to the service
       url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/1",
-      title: "USA Weather Watches and Warnings",
-      outfields: ["NAME", "UGC", "SGC"],
-      popupTemplate: popPublicForeCastZones
+      title: "USA Weather Watches and Warnings"
+      
       });
 
       // Adding the feature layer to the map

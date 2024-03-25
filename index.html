@@ -38,20 +38,12 @@
       })
         });
 
-        // Defining a popup Template for the feature layer
-        const popupWeatherReport = {
-             "title": "<i>Weather Report Information</i>",
-            "content": "<b>Object ID:</b> {OBJECTID}<br><b>Name:</b> {NAME}<br><b>UGC:</b> {UGC}<br><b>SGC:</b> {SGC}<br>"
-        }
-
-
         // Adding Weather Watches and Warnings featurelayer from feature service (0)
       const WeatherReport = new FeatureLayer({
       // URL to the service
       url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer",
-      title: "USA Weather Watches and Warnings",
-      outFields: ["OBJECTID","NAME","UGC","SGC"],
-      popupTemplate: popupWeatherReport
+      title: "USA Weather Watches and Warnings"
+      
       });
 
       // Adding the feature layer to the map
@@ -112,13 +104,22 @@
       // Adding the feature layer to the map
       map.add(CoastalOffshoreMarineZones);
 
+          // Defining a popup template for feature layer
+          const popupEventsSizeSeverity = {
+             "title": "<i>Events Ordered by Size and Severity</i>",
+            "content": "<b>Event:</b> {EVENT}<br><b>Severity:</b> {SEVERITY}<br><b>Summary:</b> {SUMMARY}<br><b>Affected:</b> {AFFECTED}<br><b>Updated:</b> {UPDATED}<br>"
+        }  
+
       // Adding Public Forecast Zones featurelayer from feature service (0)
       const EventsSizeSeverity = new FeatureLayer({
       // URL to the service
       url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6",
-      title: "Events Ordered by Size and Severity"
+      title: "Events Ordered by Size and Severity",
+      outFields: ["EVENT","SEVERITY","SUMMARY","AFFECTED","UPDATED"],
+      popupTemplate: popupEventsSizeSeverity
       
       });
+
 
       // Adding the feature layer to the map
       map.add(EventsSizeSeverity);
@@ -156,12 +157,20 @@
       // Adding the feature layer to the map
       map.add(ModerateEvents);
 
+      // Defining a popup template for feature layer
+      const popupMinorEvent = {
+             "title": "<i>Events Ordered by Size and Severity</i>",
+            "content": "<b>Event:</b> {EVENT}<br><b>Severity:</b> {SEVERITY}<br><b>Summary:</b> {SUMMARY}<br><b>Affected:</b> {AFFECTED}<br><b>Updated:</b> {UPDATED}<br>"
+        } 
+
       // Create featurelayer from feature service
       const MinorEvents = new FeatureLayer({
       // URL to the service
       url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/11",
-      title: "Minor Events"
-      
+      title: "Minor Events",
+      outFields: ["EVENT","SEVERITY","SUMMARY","AFFECTED","UPDATED"],
+      popupTemplate: popupMinorEvent
+
       });
 
       // Adding the feature layer to the map

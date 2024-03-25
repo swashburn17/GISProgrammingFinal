@@ -20,7 +20,7 @@
 
     <script>
       require([
-        "esri/config", "esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/layers/FeatureLayer", "esri/widgets/Legend", "esri/widgets/Search"], (esriConfig, Map, MapView, ImageryLayer, FeatureLayer, Legend, Search) => {
+        "esri/config", "esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/layers/FeatureLayer", "esri/widgets/Legend", "esri/widgets/Search", "esri/widgets/ScaleBar", "esri/widgets/LayerList"], (esriConfig, Map, MapView, ImageryLayer, FeatureLayer, Legend, Search, ScaleBar, LayerList) => {
 
          esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
          const map = new Map({
@@ -34,14 +34,6 @@
         zoom: 5,
         center: [-100, 40]
         });
-
-        // Adding Weather Watches and Warnings featurelayer from feature service (0)
-      const WeatherReport = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer",
-      title: "USA Weather Watches and Warnings"
-      
-      });
 
       // Adding Public Forecast Zones featurelayer from feature service (0)
       const PublicForecastZones = new FeatureLayer({
@@ -139,10 +131,34 @@ const OtherEvents = new FeatureLayer({
   popupTemplate: popupTemplate    
   });
 
-    // Adding the feature layers to the map
-    map.addMany([WeatherReport, PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents, EventsSizeSeverity]);
+ // setting up the icon
+ const SurveyRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://swashburn17.github.io/GISProgrammingFinal/health_and_safety_FILL0_wght400_GRAD0_opsz24.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+      
+  const popupSurvey = {
+  title: "<i>Marked as Safe</i>",
+  content: "<b>Name:</b> {name}<br><b>Date:</b> {_date}<br><b>Time:</b> {time}<br>"
+}
 
-const layersToShowInLegend = [WeatherReport, PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
+const SafetySurvey = new FeatureLayer({
+  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_823b32b2195b4499b72c4f64187079ed_results/FeatureServer",
+  title: "Safety Report Survey",
+  renderer: SurveyRenderer,
+  outFields: ["name","_date","time"],
+  popupTemplate: popupSurvey
+});
+
+    // Adding the feature layers to the map
+    map.addMany([PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents, EventsSizeSeverity, SafetySurvey]);
+
+const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
       let legend = new Legend({
       view: view,
       layerInfos: layersToShowInLegend.map(layer => ({
@@ -163,6 +179,21 @@ const layersToShowInLegend = [WeatherReport, PublicForecastZones, FireForecastZo
       index: 2
       });
 
+      let scaleBar = new ScaleBar({
+      view: view
+      });
+      // Add widget to the bottom left corner of the view
+      view.ui.add(scaleBar, {
+      position: "bottom-left"
+});
+
+let layerList = new LayerList({
+  view: view
+});
+// Adds widget below other elements in the top left corner of the view
+view.ui.add(layerList, {
+  position: "top-left"
+});
 
 ;
 

@@ -7,49 +7,60 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.29/"></script>
 
-    <style>
-      html,
-      body,
-      #viewDiv {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-      }
-  
-      /* Setting the style of the button */
-      .addRecordBtn {
-        position: absolute;
-        z-index: 10;
-        top: 10px;
-        right: 10px;
-        background-color: #355c3e;
-        color: white;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        font-size: 14px;
-        cursor: pointer;
-        text-decoration: none;
-      }
-      .addRecordBtn:hover {
-        background-color: #005a87;
-      }
-  
-      /* Adjust Legend and LayerList position for mobile devices */
-      @media screen and (max-width: 768px) {
-        .esri-legend {
-          width: 100px;
-          top: 10px;
-          right: 10px;
+   <style>
+    html,
+    body,
+    #viewDiv {
+     padding: 0;
+     margin: 0;
+     height: 100%;
+     width: 100%;
+    }
+ 
+     /* Setting the style of the button */
+    .addRecordBtn {
+  position: absolute;
+  z-index: 10;
+  top: 10px;
+  right: 10px;
+  background-color: #355c3e;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+    }
+    .addRecordBtn:hover {
+     background-color: #005a87;
+    }
+
+        /* Default styles for widgets */
+        #viewDiv .layerListContainer {
+            width: 250px; /* Adjust width as needed */
+            height: 300px; /* Adjust height as needed */
         }
-  
-        .esri-layer-list {
-          top: 10px;
-          left: 10px;
+
+        #viewDiv .legendContainer {
+            width: 300px; /* Adjust width as needed */
+            height: 400px; /* Adjust height as needed */
         }
-      }
-    </style>
+
+        /* Media query for mobile devices */
+        @media screen and (max-width: 768px) {
+            #viewDiv .layerListContainer {
+                width: 150px; /* Adjust width for mobile */
+                height: 200px; /* Adjust height for mobile */
+            }
+
+            #viewDiv .legendContainer {
+                width: 200px; /* Adjust width for mobile */
+                height: 250px; /* Adjust height for mobile */
+            }
+        }
+
+   </style>
 
     <script>
       require([

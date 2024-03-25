@@ -170,13 +170,15 @@ map.addMany([PublicForecastZones, FireForecastZones, USCounties, USStatesTerrito
 
 // Editting the legend to only show important layer features
 const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
-    let legend = new Legend({
+let legend = new Legend({
     view: view,
-    layout: "auto",
     layerInfos: layersToShowInLegend.map(layer => ({
-      layer: layer,
-      title: layer.title
-   }))
+        layer: layer,
+        title: layer.title
+    })),
+    style: {
+        layout: "auto"
+    }
 });
 // Adding the legend to the map
 view.ui.add(legend, "bottom-right");

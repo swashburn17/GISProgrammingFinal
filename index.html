@@ -20,25 +20,22 @@
 
     <script>
       require([
-        "esri/config", "esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/layers/FeatureLayer", "esri/widgets/Legend", "esri/widgets/Locate"], (esriConfig, Map, MapView, ImageryLayer, FeatureLayer, Legend, Locate) => {
+        "esri/config", "esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/layers/FeatureLayer", "esri/widgets/Legend", "esri/widgets/Features"], (esriConfig, Map, MapView, ImageryLayer, FeatureLayer, Legend, Features) => {
 
          esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
-        const layer = new ImageryLayer({
-          url: "https://earthobs2.arcgis.com/arcgis/rest/services/REMSS_SeaSurfaceTemp/ImageServer",
-          format: "jpgpng" // server exports in either jpg or png format
-        });
-
-      // Adding Image Layer
-        const map = new Map({
-          basemap: "arcgis-topographic",
-          layers: [layer]
+         const map = new Map({
+          basemap: "arcgis-topographic"
+          
         });
 
         const view = new MapView({
-          container: "viewDiv",
-          map: map,
-          center: [-100, 40],
-          zoom: 4
+        container: "viewDiv",
+        map: map,
+        zoom: 5,
+        center: [-100, 40],
+        popup: new Features({
+        container: "features-widget"
+      })
         });
 
         // Adding Weather Watches and Warnings featurelayer from feature service (0)
@@ -179,16 +176,31 @@
 
       view.ui.add(legend, "bottom-right");
 
+    // Create a new instance of Features and set the view property
+    // to the View along with the container that holds the widget
+    // such as a Calcite Shell Panel.
+    const featuresWidget = new Features({
+    view: view,
+    container: "features-widget"
+    });
 
-      let locateWidget = new Locate({
-      view: view,   // Attaches the Locate button to the view
-      graphic: new Graphic({
-      symbol: { type: "simple-marker" }  // overwrites the default symbol used for the
-    // graphic placed at the location of the user when found
+    // Use reactiveUtils to watch for when the view has a click event
+    // then open the Features widget in its respective container.
+    reactiveUtils.on(()=> view, "click",
+    (event)=>{
+      featuresWidget.open({
+        location: event.mapPoint,
+        fetchFeatures: true
     })
 });
 
-    view.ui.add(locateWidget, "top-left");
+    // Add the widget to the top-right corner of the view
+    view.ui.add(featuresWidget, {
+    position: "bottom-left"
+  });
+
+
+;
 
       });
     </script>

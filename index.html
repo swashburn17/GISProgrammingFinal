@@ -195,23 +195,32 @@ view.ui.add(layerListExpand, {
   position: "top-left"
 });
 
-// Editting the legend to only show important layer features
-const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
-let legend = new Legend({
-    view: view,
-    autoCollapse: true,
-    layerInfos: layersToShowInLegend.map(layer => ({
-        layer: layer,
-        title: layer.title
-    })),
-    style: {
-        layout: "auto"
-    }
-});
-// Adding the legend to the map
-view.ui.add(legend, "bottom-right");
+// Define the layers to be shown in the legend
+const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];
 
-;
+// Create the Legend widget
+let legend = new Legend({
+  view: view,
+  layerInfos: layersToShowInLegend.map(layer => ({
+    layer: layer,
+    title: layer.title
+  })),
+  style: {
+    layout: "auto"
+  }
+});
+
+// Create the Expand widget for the Legend
+let legendExpand = new Expand({
+  view: view,
+  content: legend,
+  expandTooltip: "Expand Legend",
+  collapseTooltip: "Collapse Legend",
+  autoCollapse: true // Automatically collapse the legend when another widget is opened
+});
+
+// Adding the Expand widget for the Legend to the view's UI
+view.ui.add(legendExpand, "bottom-right");
 
       });
     </script>

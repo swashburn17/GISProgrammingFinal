@@ -17,6 +17,7 @@
      width: 100%;
     }
  
+     /* Setting the style of the button */
     .addRecordBtn {
   position: absolute;
   z-index: 10;
@@ -31,7 +32,6 @@
   cursor: pointer;
   text-decoration: none;
     }
-
     .addRecordBtn:hover {
      background-color: #005a87;
     }
@@ -45,7 +45,6 @@
          esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
          const map = new Map({
           basemap: "arcgis-topographic"
-          
         });
 
         const view = new MapView({
@@ -55,64 +54,52 @@
         center: [-100, 40]
         });
 
-      // Adding Public Forecast Zones featurelayer from feature service (0)
-      const PublicForecastZones = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/1",
-      title: "USA Weather Watches and Warnings"
-      
-      });
+  // Adding Public Forecast Zones featurelayer from feature service (1)
+  const PublicForecastZones = new FeatureLayer({
+  url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/1",
+  title: "USA Weather Watches and Warnings"
+});
 
-      // Adding Public Forecast Zones featurelayer from feature service (0)
-      const FireForecastZones = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/2",
-      title: "Fire Forecast Zones"
-      
-      });
+  // Adding Fire Forecast Zones featurelayer from feature service (2)
+  const FireForecastZones = new FeatureLayer({
+  url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/2",
+  title: "Fire Forecast Zones"
+});
 
-      // Adding Public Forecast Zones featurelayer from feature service (0)
-      const USCounties = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/3",
-      title: "US Counties"
-      
-      });
+  // Adding US Counties Zones featurelayer from feature service (3)
+  const USCounties = new FeatureLayer({
+  url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/3",
+  title: "US Counties"
+});
 
-      // Adding Public Forecast Zones featurelayer from feature service (0)
-      const USStatesTerritories = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/4",
-      title: "US States and Territories"
-      
-      });
+  // Adding US States & Territories featurelayer from feature service (4)
+  const USStatesTerritories = new FeatureLayer({
+  url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/4",
+  title: "US States and Territories"
+});
 
 
-      // Adding Public Forecast Zones featurelayer from feature service (0)
-      const CoastalOffshoreMarineZones = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/5",
+// Adding Coastal Offshore and Marine Zones featurelayer from feature service (5)
+const CoastalOffshoreMarineZones = new FeatureLayer({
+url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/5",
       title: "Coastal and Offshore Marine Zones"
-      
-      });
+});
 
-// Defining a popup template for feature layer
+// Defining a popup template for the Events, Size, and Severity Feature Layers
 const popupTemplate = {
   title: "<i><b>Event:</b> {Event}<br></i>",
   content: "<b>Urgency:</b> {Urgency}<br><b>Severity:</b> {Severity}<br><b>Summary:</b> {Summary}<br><b>Affected:</b> {Affected}<br><b>Updated:</b> {Updated}<br>"
 }
 
-// Adding Public Forecast Zones featurelayer from feature service (0)
+// Adding Events, Size, and Severity featurelayer from feature service (6)
 const EventsSizeSeverity = new FeatureLayer({
-// URL to the service
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6",
   title: "Events Ordered by Size and Severity",
   outFields: ["Urgency","Severity","Summary","Affected","Updated"],
-  popupTemplate: popupTemplate
-      
+  popupTemplate: popupTemplate   
 });
 
-// Create featurelayer from feature service
+// Create Minor Events feature layer from feature service
 const MinorEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/11",
   title: "Minor Events",
@@ -120,6 +107,7 @@ const MinorEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
+// Adding Moderate Events featurelayer from feature service (7)
 const ModerateEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/10",
   title: "Moderate Events",
@@ -127,6 +115,7 @@ const ModerateEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
+// Adding Severe Events featurelayer from feature service (8)
 const SevereEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/9",
   title: "Severe Events",
@@ -134,6 +123,7 @@ const SevereEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
+// Adding Extreme Events featurelayer from feature service (9)
 const ExtremeEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/8",
   title: "Extreme Events",
@@ -141,17 +131,15 @@ const ExtremeEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
-
-// Create featurelayer from feature service
+// Adding Other Events featurelayer from feature service (10)
 const OtherEvents = new FeatureLayer({
- // URL to the service
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/12",
   title: "Other Events",
   outFields: ["Urgency","Severity","Summary","Affected","Updated"],
   popupTemplate: popupTemplate    
-  });
+});
 
- // setting up the icon
+ // Setting up the safety icon for marking your location as safe from the survey
  const SurveyRenderer = {
         "type": "simple",
         "symbol": {
@@ -161,12 +149,14 @@ const OtherEvents = new FeatureLayer({
           "height": "18px"
         }
       }
-      
-  const popupSurvey = {
+    
+// Constructing the popup survey for marking your location as safe      
+const popupSurvey = {
   title: "<i>Marked as Safe</i>",
   content: "<b>Name:</b> {name}<br><b>Date:</b> {_date}<br><b>Time:</b> {time}<br>"
 }
 
+// Adding the Safety Survey feature layer from the survey123 results
 const SafetySurvey = new FeatureLayer({
   url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_823b32b2195b4499b72c4f64187079ed_results/FeatureServer",
   title: "Safety Report Survey",
@@ -175,30 +165,30 @@ const SafetySurvey = new FeatureLayer({
   popupTemplate: popupSurvey
 });
 
-    // Adding the feature layers to the map
-    map.addMany([PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents, EventsSizeSeverity, SafetySurvey]);
+// Adding the important feature layers to the map
+map.addMany([PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents, EventsSizeSeverity, SafetySurvey]);
 
+// Editting the legend to only show important layer features
 const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
-      let legend = new Legend({
-      view: view,
-      layerInfos: layersToShowInLegend.map(layer => ({
-        layer: layer,
-        title: layer.title
-       }))
-      });
+    let legend = new Legend({
+    view: view,
+    layerInfos: layersToShowInLegend.map(layer => ({
+      layer: layer,
+      title: layer.title
+   }))
+});
+// Adding the legend to the map
+view.ui.add(legend, "bottom-right");
 
-      view.ui.add(legend, "bottom-right");
-
-      const searchWidget = new Search({
-      view: view
-      });
-      // Adds the search widget below other elements in
-      // the top left corner of the view
-      view.ui.add(searchWidget, {
-      position: "top-left",
-      index: 2
-      });
-
+// Creating and adding the search widget for the map
+const searchWidget = new Search({
+  view: view
+});
+  view.ui.add(searchWidget, {
+    position: "top-left",
+    index: 2
+});
+// Creating and adding the scalebar widget to the map
       let scaleBar = new ScaleBar({
       view: view
       });
@@ -206,11 +196,10 @@ const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties
       view.ui.add(scaleBar, {
       position: "bottom-left"
 });
-
+// Creating and adding the layerlist widget to the map
 let layerList = new LayerList({
   view: view
 });
-// Adds widget below other elements in the top left corner of the view
 view.ui.add(layerList, {
   position: "top-left"
 });
@@ -223,7 +212,8 @@ view.ui.add(layerList, {
 
   <body>
 
-    <a href="https://survey123.arcgis.com/share/55a1dcb95cfe435a8b16cebfd83afef4"target="_blank" class="addRecordBtn">Mark Yourself Safe</a>
+    <!-- Adding the survey button and target link for marking yourself safe -->
+    <a href="https://arcg.is/0e1r99"target="_blank" class="addRecordBtn">Mark Yourself Safe</a>
 
     <div id="viewDiv"></div>
   </body>

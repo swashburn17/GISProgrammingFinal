@@ -36,17 +36,6 @@
      background-color: #005a87;
     }
 
-    @media screen and (max-width: 768px) {
-        .esri-legend {
-            /* Adjust the size and position of the legend for smaller screens */
-            /* For example, you could reduce the width and move it to the top-right corner */
-            max-height:150px;
-            max-width: 100px;
-            top: 10px;
-            right: 10px;
-        }
-    }
-
    </style>
 
     <script>
@@ -183,6 +172,7 @@ map.addMany([PublicForecastZones, FireForecastZones, USCounties, USStatesTerrito
 const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
     let legend = new Legend({
     view: view,
+    type: "card",
     layerInfos: layersToShowInLegend.map(layer => ({
       layer: layer,
       title: layer.title

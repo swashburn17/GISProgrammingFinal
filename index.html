@@ -172,7 +172,7 @@ map.addMany([PublicForecastZones, FireForecastZones, USCounties, USStatesTerrito
 const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
     let legend = new Legend({
     view: view,
-    type: "card",
+    layout: "auto",
     layerInfos: layersToShowInLegend.map(layer => ({
       layer: layer,
       title: layer.title

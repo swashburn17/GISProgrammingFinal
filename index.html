@@ -36,35 +36,11 @@
      background-color: #005a87;
     }
 
-        /* Default styles for widgets */
-        #viewDiv .layerListContainer {
-            width: 250px; /* Adjust width as needed */
-            height: 300px; /* Adjust height as needed */
-        }
-
-        #viewDiv .legendContainer {
-            width: 300px; /* Adjust width as needed */
-            height: 400px; /* Adjust height as needed */
-        }
-
-        /* Media query for mobile devices */
-        @media screen and (max-width: 768px) {
-            #viewDiv .layerListContainer {
-                width: 150px; /* Adjust width for mobile */
-                height: 200px; /* Adjust height for mobile */
-            }
-
-            #viewDiv .legendContainer {
-                width: 200px; /* Adjust width for mobile */
-                height: 250px; /* Adjust height for mobile */
-            }
-        }
-
    </style>
 
     <script>
       require([
-        "esri/config", "esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/layers/FeatureLayer", "esri/widgets/Legend", "esri/widgets/Search", "esri/widgets/ScaleBar", "esri/widgets/LayerList"], (esriConfig, Map, MapView, ImageryLayer, FeatureLayer, Legend, Search, ScaleBar, LayerList) => {
+        "esri/config", "esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/layers/FeatureLayer", "esri/widgets/Legend", "esri/widgets/Search", "esri/widgets/ScaleBar", "esri/widgets/LayerList", "esri/widgets/Expand"], (esriConfig, Map, MapView, ImageryLayer, FeatureLayer, Legend, Search, ScaleBar, LayerList, Expand) => {
 
          esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
          const map = new Map({
@@ -192,10 +168,38 @@ const SafetySurvey = new FeatureLayer({
 // Adding the important feature layers to the map
 map.addMany([PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents, EventsSizeSeverity, SafetySurvey]);
 
+// Creating and adding the search widget for the map
+const searchWidget = new Search({
+  view: view
+});
+  view.ui.add(searchWidget, {
+    position: "top-left",
+    index: 2
+});
+// Creating the LayerList widget
+let layerList = new LayerList({
+  view: view
+});
+
+// Creating the Expand widget and wrapping the LayerList widget inside it
+let layerListExpand = new Expand({
+  view: view,
+  content: layerList,
+  expandTooltip: "Expand Layer List",
+  collapseTooltip: "Collapse Layer List",
+  autoCollapse: true
+});
+
+// Adding the Expand widget for the
+view.ui.add(layerListExpand, {
+  position: "top-left"
+});
+
 // Editting the legend to only show important layer features
 const layersToShowInLegend = [PublicForecastZones, FireForecastZones, USCounties, USStatesTerritories, CoastalOffshoreMarineZones, EventsSizeSeverity];    
 let legend = new Legend({
     view: view,
+    autoCollapse: true,
     layerInfos: layersToShowInLegend.map(layer => ({
         layer: layer,
         title: layer.title
@@ -206,30 +210,6 @@ let legend = new Legend({
 });
 // Adding the legend to the map
 view.ui.add(legend, "bottom-right");
-
-// Creating and adding the search widget for the map
-const searchWidget = new Search({
-  view: view
-});
-  view.ui.add(searchWidget, {
-    position: "top-left",
-    index: 2
-});
-// Creating and adding the scalebar widget to the map
-      let scaleBar = new ScaleBar({
-      view: view
-      });
-      // Add widget to the bottom left corner of the view
-      view.ui.add(scaleBar, {
-      position: "bottom-left"
-});
-// Creating and adding the layerlist widget to the map
-let layerList = new LayerList({
-  view: view
-});
-view.ui.add(layerList, {
-  position: "top-left"
-});
 
 ;
 

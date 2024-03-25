@@ -110,25 +110,21 @@
             "content": "<b>Event:</b> {EVENT}<br><b>Severity:</b> {SEVERITY}<br><b>Summary:</b> {SUMMARY}<br><b>Affected:</b> {AFFECTED}<br><b>Updated:</b> {UPDATED}<br>"
         }  
 
-      // Adding Public Forecast Zones featurelayer from feature service (0)
-      const EventsSizeSeverity = new FeatureLayer({
-      // URL to the service
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6",
-      title: "Events Ordered by Size and Severity",
-      outFields: ["EVENT","SEVERITY","SUMMARY","AFFECTED","UPDATED"],
-      popupTemplate: popupEventsSizeSeverity
-      
-      });
-
-
-      // Adding the feature layer to the map
-      map.add(EventsSizeSeverity);
-
 // Defining a popup template for feature layer
 const popupTemplate = {
   title: "<i>Events Ordered by Size and Severity</i>",
   content: "<b>Event:</b> {Event}<br><b>Severity:</b> {Severity}<br><b>Summary:</b> {Summary}<br><b>Affected:</b> {Affected}<br><b>Updated:</b> {Updated}<br>"
 }
+
+// Adding Public Forecast Zones featurelayer from feature service (0)
+const EventsSizeSeverity = new FeatureLayer({
+// URL to the service
+  url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6",
+  title: "Events Ordered by Size and Severity",
+  outFields: ["Event","Severity","Summary","Affected","Updated"],
+  popupTemplate: popupTemplate
+      
+});
 
 // Create featurelayer from feature service
 const MinorEvents = new FeatureLayer({
@@ -170,7 +166,7 @@ const OtherEvents = new FeatureLayer({
   });
 
     // Adding the feature layers to the map
-    map.addMany([MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents]);
+    map.addMany([MinorEvents, ModerateEvents, SevereEvents, ExtremeEvents, EventsSizeSeverity]);
 
       let legend = new Legend({
       view: view

@@ -99,7 +99,7 @@ const EventsSizeSeverity = new FeatureLayer({
   popupTemplate: popupTemplate   
 });
 
-// Create Minor Events feature layer from feature service
+// Create Minor Events feature layer from feature service (11)
 const MinorEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/11",
   title: "Minor Events",
@@ -107,7 +107,7 @@ const MinorEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
-// Adding Moderate Events featurelayer from feature service (7)
+// Adding Moderate Events featurelayer from feature service (10)
 const ModerateEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/10",
   title: "Moderate Events",
@@ -115,7 +115,7 @@ const ModerateEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
-// Adding Severe Events featurelayer from feature service (8)
+// Adding Severe Events featurelayer from feature service (9)
 const SevereEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/9",
   title: "Severe Events",
@@ -123,7 +123,7 @@ const SevereEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
-// Adding Extreme Events featurelayer from feature service (9)
+// Adding Extreme Events featurelayer from feature service (8)
 const ExtremeEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/8",
   title: "Extreme Events",
@@ -131,7 +131,7 @@ const ExtremeEvents = new FeatureLayer({
   popupTemplate: popupTemplate
 });
 
-// Adding Other Events featurelayer from feature service (10)
+// Adding Other Events featurelayer from feature service (12)
 const OtherEvents = new FeatureLayer({
   url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/12",
   title: "Other Events",
@@ -190,7 +190,7 @@ let layerListExpand = new Expand({
   autoCollapse: true
 });
 
-// Adding the Expand widget for the
+// Adding the Expand widget for the map
 view.ui.add(layerListExpand, {
   position: "top-left"
 });
@@ -219,7 +219,7 @@ let legendExpand = new Expand({
   autoCollapse: true // Automatically collapse the legend when another widget is opened
 });
 
-// Adding the Expand widget for the Legend to the view's UI
+// Adding the Expand widget for the legend to the map
 view.ui.add(legendExpand, "bottom-right");
 
       });
